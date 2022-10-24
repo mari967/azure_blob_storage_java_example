@@ -132,7 +132,7 @@ private static String connectionString = "DefaultEndpointsProtocol=http;AccountN
 ```
 
 Este es el string de conexión local por defecto para conectarse a la instancia del emulador Azurite. Para conectarse a una cuenta de Azure Storage se debe obtener un string similar desde la página de la cuenta y reemplezarlo en el código. Se puede obtener de la siguiente manera:
-1. Ir al [portal de Azure](portal.azure.com "Portal de Azure")\
+1. Ir al [portal de Azure](https://portal.azure.com "Portal de Azure")
 2. Cuentas de Almacenamiento
 3. seleccionar la cuenta con la que se desea trabajar
 4. ir a claves de acceso
