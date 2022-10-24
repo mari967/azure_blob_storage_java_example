@@ -59,6 +59,57 @@ Ya se encuentra configurado con las credenciales locales, por lo que se podrá u
 ### Opcional. Gestionar el Blob Storage con Postman
 !!! Compeltar
 
-## Azure SDK para java: Descripción del código
+## Azure SDK para java. Descripción del proyecto
 
+### Dependencias
+
+Para poder utilizar la SDK de Azure se bede incluir lo siguiente en el POM:
+
+
+```xml
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>com.azure</groupId>
+            <artifactId>azure-sdk-bom</artifactId>
+            <version>{bom_version_to_target}</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+```
+
+Luego la dependencia directa sin el tag de versión
+
+```xml
+<dependencies>
+  <dependency>
+    <groupId>com.azure</groupId>
+    <artifactId>azure-storage-blob</artifactId>
+  </dependency>
+</dependencies>
+
+```
+
+Más información sobre las dependencias se puede encontrar en la [documentación de Azure](https://learn.microsoft.com/en-us/java/api/overview/azure/storage-blob-readme?source=recommendations&view=azure-java-stable#include-the-package "Include the package")
+
+### Código
+El proyecto se compone de las siguientes clases 
+
+* clase Main con sentencias switch para seleccionar alguna de las opciones para trabajar con contenedores (subir, descargar, eliminar archivos en un contenedor y crear o elimnar contenedores)
+* clase AzureBlobStorage donde se implementan los métodos correspondientes a cada acción
+
+### Conectarse a una cuenta de almacenamiento en Azure
+El la clase AzureBlobStorage contamos con un atributo string llamado connectionString con la siguiente forma
+```java
+private static String connectionString = "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;QueueEndpoint=http://127.0.0.1:10001/devstoreaccount1;TableEndpoint=http://127.0.0.1:10002/devstoreaccount1;";
+```
+
+Este es el string de conexión local por defecto para conectarse a la instancia del emulador Azurite. Para conectarse a una cuenta de Azure Storage se debe obtener un string similar desde la página de la cuenta y reemplezarlo en el código. Se puede obtener de la siguiente manera:
+1. Ir al [portal de Azure](portal.azure.com "Portal de Azure")\
+2.Cuentas de Almacenamiento
+3. seleccionar la cuenta con la que se desea trabajar
+4. ir a claves de acceso
+5. copiar la cadena de conexión correspondiente a una clave
 
