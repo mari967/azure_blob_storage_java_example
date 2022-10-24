@@ -9,10 +9,10 @@ public class Main {
         
         int continueOption = 0;
         do {
-            System.out.println("**** Azure Blob Storage - Seleccione la opción ****");
+            System.out.println("**** Azure Blob Storage Example - Seleccione la opción ****");
             System.out.println("""
                 1) Subir, descargar o eliminar archivos de un container en particular
-                2) Crear nuevo container
+                2) Crear o eliminar un container
                 """);
 
             int firstQuestionOpotion = integerScanner.nextInt();
@@ -70,10 +70,27 @@ public class Main {
 
             //New container
             else if(firstQuestionOpotion == 2) {
-                System.out.println("Ingrese nombre del nuevo container en el storage account");
-                String newContainerName = lineScanner.nextLine();
-                Boolean wasContainerCreated = AzureBlobStorage.createBlobContainer(newContainerName);
-                System.out.println("Contenedor " + newContainerName + " creado: " + wasContainerCreated);
+                System.out.println("""
+                1) Crear contenedor
+                2) Eliminar contenedor
+                """);
+
+                int containerOption = integerScanner.nextInt();
+
+                switch (containerOption) {
+                    case 1:
+                        System.out.println("Ingrese nombre del nuevo container en el Blob Storage");
+                        String newContainerName = lineScanner.nextLine();
+                        Boolean wasContainerCreated = AzureBlobStorage.createBlobContainer(newContainerName);
+                        System.out.println("Contenedor " + newContainerName + " creado: " + wasContainerCreated);
+                    case 2:
+                        System.out.println("Ingrese nombre del container a borrar del Blob Storage");
+                        String containerNameToDelete = lineScanner.nextLine();
+                        Boolean wasContainerDeleted = AzureBlobStorage.deleteBlobContainer(containerNameToDelete);
+                        System.out.println("Contenedor " + containerNameToDelete + " borrado: " + wasContainerDeleted);
+                }
+
+
             }
 
             System.out.println(" \n\n===========================\n\n ");

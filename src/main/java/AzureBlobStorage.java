@@ -10,8 +10,9 @@ import com.azure.storage.blob.*;
 public class AzureBlobStorage {
 
     /**
-     * Se obtiene del Azure Storage Explorer. Clic derecho en Emulador-Firma de eacceso compartido-Copiar cadena de conexión (connection string)
+     * Se obtiene del Azure Storage Explorer. Clic derecho en Emulador-Firma de acceso compartido-Copiar cadena de conexión (connection string)
      * */
+    //LOCAL
     private static String connectionString = "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;QueueEndpoint=http://127.0.0.1:10001/devstoreaccount1;TableEndpoint=http://127.0.0.1:10002/devstoreaccount1;";
 
 
@@ -40,12 +41,21 @@ public class AzureBlobStorage {
 
     //Operaciones sobre un Storage account en particular
 
+
     public static Boolean createBlobContainer(String nameOfNewContainer) {
         return new BlobServiceClientBuilder()
                 .connectionString(connectionString)
                 .buildClient()
                 .getBlobContainerClient(nameOfNewContainer)
                 .createIfNotExists();
+    }
+
+    public static Boolean deleteBlobContainer(String containerNameToDelete) {
+        return new BlobServiceClientBuilder()
+                .connectionString(connectionString)
+                .buildClient()
+                .getBlobContainerClient(containerNameToDelete)
+                .deleteIfExists();
     }
 
 
