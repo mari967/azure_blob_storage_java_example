@@ -97,14 +97,29 @@ Más información sobre las dependencias se puede encontrar en la [documentació
 ### Código
 El proyecto se compone de las siguientes clases 
 
-* clase Main con sentencias switch para seleccionar alguna de las opciones para trabajar con contenedores (subir, descargar, eliminar archivos en un contenedor y crear o elimnar contenedores)
-* clase AzureBlobStorageExample donde se implementan los métodos correspondientes a cada acción
+* **Clase Main** con sentencias switch para seleccionar alguna de las opciones para trabajar con contenedores (subir, descargar, eliminar archivos en un contenedor y crear o elimnar contenedores)
+* **Clase AzureBlobStorageExample** donde se implementan los métodos correspondientes a cada acción
 
 La clase AzureBlobStorageExample es la más interesante ya que utiliza la librería de Azure. 
+
 Las clases más relevantes para comprender el proyecto que pertenecen a esa librería son las siguientes:
-* BlobServiceClient Clase para enviar requests y gestionar la cuenta de almacenamiento de Azure. Se instancia a través de BlobServiceClientBuilder. Ver [documentación oficial](https://learn.microsoft.com/en-us/java/api/com.azure.storage.blob.blobserviceclient?view=azure-java-stable)
-* BlobContainerClient Clase cliente para enviar requests y gestionar un contenedor en particular. Algunas operaciones sobre contenedores son crearlos o eliminarlos. Se puede instanciar a través de la clase BlobContainerClientBuilder p por el método BlobServiceClient.getBlobContainerClient(). Ver [documentación oficial](https://learn.microsoft.com/en-us/java/api/com.azure.storage.blob.blobcontainerclient?view=azure-java-stable)
-* BlobClient Clase cliente para enviar requests y gestionar un blob (archivo) en particular. Las operaciones permitidas por el cliente son carga y descarga, copia de un blob, recuperación y configuración de metadatos, recuperación y configuración de encabezados HTTP y eliminación y recuperación de un blob. Ver [documentación oficial](https://learn.microsoft.com/en-us/java/api/com.azure.storage.blob.blobclient?view=azure-java-stable)
+
+#### **BlobServiceClient** 
+Clase para enviar requests y gestionar la cuenta de almacenamiento de Azure. Se instancia a través de BlobServiceClientBuilder. 
+Ver [documentación oficial](https://learn.microsoft.com/en-us/java/api/com.azure.storage.blob.blobserviceclient?view=azure-java-stable)
+
+#### **BlobContainerClient** 
+Usado en el ejemplo. Clase cliente para enviar requests y gestionar un contenedor en particular. Algunas operaciones sobre contenedores son crearlos o eliminarlos. Se puede instanciar a través de la clase BlobContainerClientBuilder por el método BlobServiceClient.getBlobContainerClient(). 
+Ver [documentación oficial](https://learn.microsoft.com/en-us/java/api/com.azure.storage.blob.blobcontainerclient?view=azure-java-stable)
+
+Los métodos createBlobContainer() y deleteBlobContainer() del ejemplo usan esta clase y los métodos createIfNotExists() y deleteIfExists() de la misma.
+
+#### **BlobClient** 
+Clase cliente para enviar requests y gestionar un blob (archivo) en particular. Las operaciones permitidas por el cliente son carga y descarga, copia de un blob, recuperación y configuración de metadatos, recuperación y configuración de encabezados HTTP y eliminación y recuperación de un blob. Ver [documentación oficial](https://learn.microsoft.com/en-us/java/api/com.azure.storage.blob.blobclient?view=azure-java-stable)
+
+El método uploadDataToBlob() utiliza el método upload() para subir datos ingresados por el usuario en terminal.
+
+Los métodos uploadLocalFileToBlob(), downloadFileToLocalPath(), deleteBlobIfExists() utilizan los métodos uploadFromFile(), downloadToFile(), deleteIfExists() de esta clase.
 
 ### Conectarse a una cuenta de almacenamiento en Azure
 El la clase AzureBlobStorageExample contamos con un atributo string llamado connectionString con la siguiente forma
