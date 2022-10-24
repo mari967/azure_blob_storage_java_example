@@ -8,7 +8,10 @@ No es necesario contar con una cuenta de almacenamiento en Azure (Azure Storage 
 Levantaremos una instancia del emulador usando Docker.
 
 ## Conceptos sobre Azure Storage
- !!! Agregar info teórica
+ Blob Storage es un servicio en Azure, parte del Storage Account po cuenta de almacenamiento, que permite a desarrolladores almacenares cualquier tipo de dato [no estructurado](https://www.mongodb.com/unstructured-data "Unstructured data"). A los datos o archivos subidos se los conoce como blobs. Estos pueden agruparse como contenedores que pertenecen a una cuenta de almacenamiento en particular. Más información sobre qué es Blob Storage en [este link](https://www.techopedia.com/definition/32166/blob-storage#:~:text=Blob%20storage%20is%20a%20feature,Blobs%20can%20be%20manipulated%20with%20.) de Technopedia.
+ 
+ [Este video](https://www.youtube.com/watch?v=_Qlkvd4ZQuo&ab_channel=AdamMarczak-AzureforEveryone) de del canal AdamMarczak-AzureforEveryone explica todos los conceptos básicos del Azure Stora Account y los servicios de almacenamiento asociados de manera muy clara.
+ Adam Marczak también compartió [este resumen](https://marczak.io/az-900/episode-11/cheat-sheet/) muy útil en su página.
 
 ## Pre requisitos
 * Docker 
@@ -57,7 +60,8 @@ Ya se encuentra configurado con las credenciales locales, por lo que se podrá u
 
 
 ### Opcional. Gestionar el Blob Storage con Postman
-!!! Compeltar
+Se pueden subir, descargar y eliminar archivos a través de una API REST que proveen las cuentas de almacenamiento.
+[Aquí](https://www.youtube.com/watch?v=uSW8-1oxyYg&ab_channel=RobotZer0) hay unos ejemplos sobre como subir archivos y descargarlos usando Postman.
 
 ## Azure SDK para java. Descripción del proyecto
 
