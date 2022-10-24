@@ -98,16 +98,16 @@ Más información sobre las dependencias se puede encontrar en la [documentació
 El proyecto se compone de las siguientes clases 
 
 * clase Main con sentencias switch para seleccionar alguna de las opciones para trabajar con contenedores (subir, descargar, eliminar archivos en un contenedor y crear o elimnar contenedores)
-* clase AzureBlobStorage donde se implementan los métodos correspondientes a cada acción
+* clase AzureBlobStorageExample donde se implementan los métodos correspondientes a cada acción
 
-La clase AzureBlobStorage es la más interesante ya que utiliza la librería de Azure. 
+La clase AzureBlobStorageExample es la más interesante ya que utiliza la librería de Azure. 
 Las clases más relevantes para comprender el proyecto que pertenecen a esa librería son las siguientes:
 * BlobServiceClient Clase para enviar requests y gestionar la cuenta de almacenamiento de Azure. Se instancia a través de BlobServiceClientBuilder. Ver [documentación oficial](https://learn.microsoft.com/en-us/java/api/com.azure.storage.blob.blobserviceclient?view=azure-java-stable)
 * BlobContainerClient Clase cliente para enviar requests y gestionar un contenedor en particular. Algunas operaciones sobre contenedores son crearlos o eliminarlos. Se puede instanciar a través de la clase BlobContainerClientBuilder p por el método BlobServiceClient.getBlobContainerClient(). Ver [documentación oficial](https://learn.microsoft.com/en-us/java/api/com.azure.storage.blob.blobcontainerclient?view=azure-java-stable)
 * BlobClient Clase cliente para enviar requests y gestionar un blob (archivo) en particular. Las operaciones permitidas por el cliente son carga y descarga, copia de un blob, recuperación y configuración de metadatos, recuperación y configuración de encabezados HTTP y eliminación y recuperación de un blob. Ver [documentación oficial](https://learn.microsoft.com/en-us/java/api/com.azure.storage.blob.blobclient?view=azure-java-stable)
 
 ### Conectarse a una cuenta de almacenamiento en Azure
-El la clase AzureBlobStorage contamos con un atributo string llamado connectionString con la siguiente forma
+El la clase AzureBlobStorageExample contamos con un atributo string llamado connectionString con la siguiente forma
 ```java
 private static String connectionString = "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;QueueEndpoint=http://127.0.0.1:10001/devstoreaccount1;TableEndpoint=http://127.0.0.1:10002/devstoreaccount1;";
 ```

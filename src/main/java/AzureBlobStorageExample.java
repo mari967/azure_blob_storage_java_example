@@ -7,13 +7,7 @@ import com.azure.storage.blob.*;
  * https://learn.microsoft.com/en-us/java/api/overview/azure/storage-blob-readme?source=recommendations&view=azure-java-stable#examples
  */
 
-public class AzureBlobStorage {
-
-    /**
-     * Se obtiene del Azure Storage Explorer. Clic derecho en Emulador-Firma de acceso compartido-Copiar cadena de conexión (connection string)
-     * */
-    //LOCAL
-    private static String connectionString = "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;QueueEndpoint=http://127.0.0.1:10001/devstoreaccount1;TableEndpoint=http://127.0.0.1:10002/devstoreaccount1;";
+public class AzureBlobStorageExample {
 
 
     /**
@@ -31,30 +25,34 @@ public class AzureBlobStorage {
      * */
     private BlobContainerClient blobContainerClient;
 
-    public AzureBlobStorage(String containerName) {
-            this.blobContainerClient = new BlobContainerClientBuilder()
+    /**
+     * Se obtiene del Azure Storage Explorer. Clic derecho en Emulador-Firma de acceso compartido-Copiar cadena de conexión (connection string)
+     * */
+    //LOCAL
+    private String connectionString = "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;QueueEndpoint=http://127.0.0.1:10001/devstoreaccount1;TableEndpoint=http://127.0.0.1:10002/devstoreaccount1;";
+    private String containerName;
+    public AzureBlobStorageExample(String containerName) {
+            this.containerName = containerName;
+            this.blobContainerClient = new BlobServiceClientBuilder()
                     .connectionString(connectionString)
-                    .containerName(containerName) //container name
-                    .buildClient();
+                    .buildClient()
+                    .getBlobContainerClient(containerName);
     }
 
 
-    //Operaciones sobre un Storage account en particular
+    public String getContainerName() {
+        return this.containerName;
+    }
+//Operaciones sobre un Storage account en particular
 
 
-    public static Boolean createBlobContainer(String nameOfNewContainer) {
-        return new BlobServiceClientBuilder()
-                .connectionString(connectionString)
-                .buildClient()
-                .getBlobContainerClient(nameOfNewContainer)
+    public Boolean createBlobContainer() {
+        return this.blobContainerClient
                 .createIfNotExists();
     }
 
-    public static Boolean deleteBlobContainer(String containerNameToDelete) {
-        return new BlobServiceClientBuilder()
-                .connectionString(connectionString)
-                .buildClient()
-                .getBlobContainerClient(containerNameToDelete)
+    public Boolean deleteBlobContainer() {
+        return this.blobContainerClient
                 .deleteIfExists();
     }
 
