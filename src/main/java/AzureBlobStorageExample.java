@@ -1,5 +1,9 @@
+import com.azure.core.http.rest.PagedIterable;
 import com.azure.core.util.BinaryData;
 import com.azure.storage.blob.*;
+import com.azure.storage.blob.models.BlobItem;
+
+import java.util.stream.Collectors;
 
 
 /***
@@ -81,6 +85,10 @@ public class AzureBlobStorageExample {
         return this.blobContainerClient
                 .getBlobClient(remoteBlobName)
                 .deleteIfExists();
+    }
+
+    public String listBlobsInContainer() {
+        return this.blobContainerClient.listBlobs().stream().map(blobItem -> blobItem.getName() ).collect(Collectors.joining(",\n"));
     }
 
 }

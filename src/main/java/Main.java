@@ -12,7 +12,7 @@ public class Main {
         do {
             System.out.println("**** Azure Blob Storage Example - Seleccione la opción ****");
             System.out.println("""
-                1) Subir, descargar o eliminar archivos de un container en particular
+                1) Subir, descargar, eliminar o listar archivos de un container en particular
                 2) Crear o eliminar un container
                 """);
 
@@ -29,7 +29,8 @@ public class Main {
                 1) Subir datos binarios
                 2) Subir archivo local
                 3) Descargar archivo
-                4) Eliminar archivo en Azure\s""");
+                4) Eliminar archivo en Azure
+                5) Listar archivos\s""");
 
                     int option = integerScanner.nextInt();
                     String remoteBlobName;
@@ -61,6 +62,10 @@ public class Main {
                             Boolean resultado = azureBlobStorageExample.deleteBlobIfExists(remoteBlobName);
                             System.out.println("Eliminado " + remoteBlobName + ": " + resultado);
                             break;
+                        case 5:
+                            System.out.println("Elementos en el container " + containerName + ":\n"
+                                    + azureBlobStorageExample.listBlobsInContainer()
+                                    + "\n----\n");
 
                     }
                     System.out.println("¿Continuar trabajando con el mismo container? 1-si / 0-no");
