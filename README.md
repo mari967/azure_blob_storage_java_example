@@ -8,7 +8,10 @@ No es necesario contar con una cuenta de almacenamiento en Azure (Azure Storage 
 Levantaremos una instancia del emulador usando Docker.
 
 ## Conceptos sobre Azure Storage
- !!! Agregar info teórica
+ Blob Storage es un servicio en Azure, parte del Storage Account po cuenta de almacenamiento, que permite a desarrolladores almacenares cualquier tipo de dato [no estructurado](https://www.mongodb.com/unstructured-data "Unstructured data"). A los datos o archivos subidos se los conoce como blobs. Estos pueden agruparse como contenedores que pertenecen a una cuenta de almacenamiento en particular. Más información sobre qué es Blob Storage en [este link](https://www.techopedia.com/definition/32166/blob-storage#:~:text=Blob%20storage%20is%20a%20feature,Blobs%20can%20be%20manipulated%20with%20.) de Technopedia.
+ 
+ [Este video](https://www.youtube.com/watch?v=_Qlkvd4ZQuo&ab_channel=AdamMarczak-AzureforEveryone) de del canal AdamMarczak-AzureforEveryone explica todos los conceptos básicos del Azure Stora Account y los servicios de almacenamiento asociados de manera muy clara.
+ Adam Marczak también compartió [este resumen](https://marczak.io/az-900/episode-11/cheat-sheet/) muy útil en su página.
 
 ## Pre requisitos
 * Docker 
@@ -57,7 +60,8 @@ Ya se encuentra configurado con las credenciales locales, por lo que se podrá u
 
 
 ### Opcional. Gestionar el Blob Storage con Postman
-!!! Compeltar
+Se pueden subir, descargar y eliminar archivos a través de una API REST que proveen las cuentas de almacenamiento.
+[Aquí](https://www.youtube.com/watch?v=uSW8-1oxyYg&ab_channel=RobotZer0) hay unos ejemplos sobre como subir archivos y descargarlos usando Postman.
 
 ## Azure SDK para java. Descripción del proyecto
 
@@ -97,14 +101,29 @@ Más información sobre las dependencias se puede encontrar en la [documentació
 ### Código
 El proyecto se compone de las siguientes clases 
 
-* clase Main con sentencias switch para seleccionar alguna de las opciones para trabajar con contenedores (subir, descargar, eliminar archivos en un contenedor y crear o elimnar contenedores)
-* clase AzureBlobStorageExample donde se implementan los métodos correspondientes a cada acción
+* **Clase Main** con sentencias switch para seleccionar alguna de las opciones para trabajar con contenedores (subir, descargar, eliminar archivos en un contenedor y crear o elimnar contenedores)
+* **Clase AzureBlobStorageExample** donde se implementan los métodos correspondientes a cada acción
 
 La clase AzureBlobStorageExample es la más interesante ya que utiliza la librería de Azure. 
+
 Las clases más relevantes para comprender el proyecto que pertenecen a esa librería son las siguientes:
-* BlobServiceClient Clase para enviar requests y gestionar la cuenta de almacenamiento de Azure. Se instancia a través de BlobServiceClientBuilder. Ver [documentación oficial](https://learn.microsoft.com/en-us/java/api/com.azure.storage.blob.blobserviceclient?view=azure-java-stable)
-* BlobContainerClient Clase cliente para enviar requests y gestionar un contenedor en particular. Algunas operaciones sobre contenedores son crearlos o eliminarlos. Se puede instanciar a través de la clase BlobContainerClientBuilder p por el método BlobServiceClient.getBlobContainerClient(). Ver [documentación oficial](https://learn.microsoft.com/en-us/java/api/com.azure.storage.blob.blobcontainerclient?view=azure-java-stable)
-* BlobClient Clase cliente para enviar requests y gestionar un blob (archivo) en particular. Las operaciones permitidas por el cliente son carga y descarga, copia de un blob, recuperación y configuración de metadatos, recuperación y configuración de encabezados HTTP y eliminación y recuperación de un blob. Ver [documentación oficial](https://learn.microsoft.com/en-us/java/api/com.azure.storage.blob.blobclient?view=azure-java-stable)
+
+#### **BlobServiceClient** 
+Clase para enviar requests y gestionar la cuenta de almacenamiento de Azure. Se instancia a través de BlobServiceClientBuilder. 
+Ver [documentación oficial](https://learn.microsoft.com/en-us/java/api/com.azure.storage.blob.blobserviceclient?view=azure-java-stable)
+
+#### **BlobContainerClient** 
+Usado en el ejemplo. Clase cliente para enviar requests y gestionar un contenedor en particular. Algunas operaciones sobre contenedores son crearlos o eliminarlos. Se puede instanciar a través de la clase BlobContainerClientBuilder por el método BlobServiceClient.getBlobContainerClient(). 
+Ver [documentación oficial](https://learn.microsoft.com/en-us/java/api/com.azure.storage.blob.blobcontainerclient?view=azure-java-stable)
+
+Los métodos createBlobContainer() y deleteBlobContainer() del ejemplo usan esta clase y los métodos createIfNotExists() y deleteIfExists() de la misma.
+
+#### **BlobClient** 
+Clase cliente para enviar requests y gestionar un blob (archivo) en particular. Las operaciones permitidas por el cliente son carga y descarga, copia de un blob, recuperación y configuración de metadatos, recuperación y configuración de encabezados HTTP y eliminación y recuperación de un blob. Ver [documentación oficial](https://learn.microsoft.com/en-us/java/api/com.azure.storage.blob.blobclient?view=azure-java-stable)
+
+El método uploadDataToBlob() utiliza el método upload() para subir datos ingresados por el usuario en terminal.
+
+Los métodos uploadLocalFileToBlob(), downloadFileToLocalPath(), deleteBlobIfExists() utilizan los métodos uploadFromFile(), downloadToFile(), deleteIfExists() de esta clase.
 
 ### Conectarse a una cuenta de almacenamiento en Azure
 El la clase AzureBlobStorageExample contamos con un atributo string llamado connectionString con la siguiente forma
@@ -113,7 +132,7 @@ private static String connectionString = "DefaultEndpointsProtocol=http;AccountN
 ```
 
 Este es el string de conexión local por defecto para conectarse a la instancia del emulador Azurite. Para conectarse a una cuenta de Azure Storage se debe obtener un string similar desde la página de la cuenta y reemplezarlo en el código. Se puede obtener de la siguiente manera:
-1. Ir al [portal de Azure](portal.azure.com "Portal de Azure")\
+1. Ir al [portal de Azure](https://portal.azure.com "Portal de Azure")
 2. Cuentas de Almacenamiento
 3. seleccionar la cuenta con la que se desea trabajar
 4. ir a claves de acceso
